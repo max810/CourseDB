@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MuseumModelStoreContainer" CdmEntityContainer="MuseumContext">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="MuseumModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Art_movement">
+      <EntityTypeMapping TypeName="MuseumModel.Art_movement">
+        <MappingFragment StoreEntitySet="Art_movement">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="century_of_beginning" ColumnName="century_of_beginning" />
+          <ScalarProperty Name="century_of_end" ColumnName="century_of_end" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Artists">
+      <EntityTypeMapping TypeName="MuseumModel.Artist">
+        <MappingFragment StoreEntitySet="Artist">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+          <ScalarProperty Name="date_of_death" ColumnName="date_of_death" />
+          <ScalarProperty Name="biography" ColumnName="biography" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exhibits">
+      <EntityTypeMapping TypeName="MuseumModel.Exhibit">
+        <MappingFragment StoreEntitySet="Exhibit">
+          <ScalarProperty Name="painting_id" ColumnName="painting_id" />
+          <ScalarProperty Name="date_of_acquiring" ColumnName="date_of_acquiring" />
+          <ScalarProperty Name="is_original" ColumnName="is_original" />
+          <ScalarProperty Name="with" ColumnName="with" />
+          <ScalarProperty Name="height" ColumnName="height" />
+          <ScalarProperty Name="canvas_type" ColumnName="canvas_type" />
+          <ScalarProperty Name="paint_type" ColumnName="paint_type" />
+          <ScalarProperty Name="hall_id" ColumnName="hall_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Halls">
+      <EntityTypeMapping TypeName="MuseumModel.Hall">
+        <MappingFragment StoreEntitySet="Hall">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="size_id" ColumnName="size_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Paintings">
+      <EntityTypeMapping TypeName="MuseumModel.Painting">
+        <MappingFragment StoreEntitySet="Painting">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+          <ScalarProperty Name="year_of_creation" ColumnName="year_of_creation" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="art_movement_id" ColumnName="art_movement_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sizes">
+      <EntityTypeMapping TypeName="MuseumModel.Size">
+        <MappingFragment StoreEntitySet="Size">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="max_exhibit_count" ColumnName="max_exhibit_count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="MuseumModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="MuseumModel.Ticket">
+        <MappingFragment StoreEntitySet="Ticket">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="user_login" ColumnName="user_login" />
+          <ScalarProperty Name="date_of_visit" ColumnName="date_of_visit" />
+          <ScalarProperty Name="time_of_visit" ColumnName="time_of_visit" />
+          <ScalarProperty Name="with_guide" ColumnName="with_guide" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_profile">
+      <EntityTypeMapping TypeName="MuseumModel.User_profile">
+        <MappingFragment StoreEntitySet="User_profile">
+          <ScalarProperty Name="user_login" ColumnName="user_login" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="is_admin" ColumnName="is_admin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

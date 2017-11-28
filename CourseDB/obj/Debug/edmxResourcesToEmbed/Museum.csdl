@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MuseumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="login" />
+    </Key>
+    <Property Name="login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User_profile" Relationship="Self.FK_Profile_User" FromRole="Account" ToRole="User_profile" />
+  </EntityType>
+  <EntityType Name="Art_movement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="century_of_beginning" Type="Int32" Nullable="false" />
+    <Property Name="century_of_end" Type="Int32" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Paintings" Relationship="Self.FK_Painting_ArtMovement" FromRole="Art_movement" ToRole="Painting" />
+  </EntityType>
+  <EntityType Name="Artist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="full_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+    <Property Name="date_of_death" Type="DateTime" Precision="0" />
+    <Property Name="biography" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Paintings" Relationship="Self.FK_Painting_Artist" FromRole="Artist" ToRole="Painting" />
+  </EntityType>
+  <EntityType Name="Exhibit">
+    <Key>
+      <PropertyRef Name="painting_id" />
+    </Key>
+    <Property Name="painting_id" Type="Int32" Nullable="false" />
+    <Property Name="date_of_acquiring" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="is_original" Type="Boolean" Nullable="false" />
+    <Property Name="with" Type="Int32" Nullable="false" />
+    <Property Name="height" Type="Int32" Nullable="false" />
+    <Property Name="canvas_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="paint_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="hall_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Hall" Relationship="Self.FK_Exhibit_Hall" FromRole="Exhibit" ToRole="Hall" />
+    <NavigationProperty Name="Painting" Relationship="Self.FK_Exhibit_Painting" FromRole="Exhibit" ToRole="Painting" />
+  </EntityType>
+  <EntityType Name="Hall">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="subject" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="size_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Exhibits" Relationship="Self.FK_Exhibit_Hall" FromRole="Hall" ToRole="Exhibit" />
+    <NavigationProperty Name="Size" Relationship="Self.FK_Hall_Size" FromRole="Hall" ToRole="Size" />
+  </EntityType>
+  <EntityType Name="Painting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="artist_id" Type="Int32" Nullable="false" />
+    <Property Name="year_of_creation" Type="Int32" />
+    <Property Name="image" Type="Binary" MaxLength="8000" FixedLength="false" />
+    <Property Name="art_movement_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Art_movement" Relationship="Self.FK_Painting_ArtMovement" FromRole="Painting" ToRole="Art_movement" />
+    <NavigationProperty Name="Artist" Relationship="Self.FK_Painting_Artist" FromRole="Painting" ToRole="Artist" />
+    <NavigationProperty Name="Exhibit" Relationship="Self.FK_Exhibit_Painting" FromRole="Painting" ToRole="Exhibit" />
+  </EntityType>
+  <EntityType Name="Size">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="max_exhibit_count" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Halls" Relationship="Self.FK_Hall_Size" FromRole="Size" ToRole="Hall" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="date_of_visit" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="time_of_visit" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="with_guide" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="User_profile" Relationship="Self.FK_Ticket_Profile" FromRole="Ticket" ToRole="User_profile" />
+  </EntityType>
+  <EntityType Name="User_profile">
+    <Key>
+      <PropertyRef Name="user_login" />
+    </Key>
+    <Property Name="user_login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="surname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="is_admin" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_Profile_User" FromRole="User_profile" ToRole="Account" />
+    <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_Profile" FromRole="User_profile" ToRole="Ticket" />
+  </EntityType>
+  <Association Name="FK_Profile_User">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="User_profile" Type="Self.User_profile" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="login" />
+      </Principal>
+      <Dependent Role="User_profile">
+        <PropertyRef Name="user_login" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Painting_ArtMovement">
+    <End Role="Art_movement" Type="Self.Art_movement" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Painting" Type="Self.Painting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Art_movement">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Painting">
+        <PropertyRef Name="art_movement_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Painting_Artist">
+    <End Role="Artist" Type="Self.Artist" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Painting" Type="Self.Painting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Painting">
+        <PropertyRef Name="artist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibit_Hall">
+    <End Role="Hall" Type="Self.Hall" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Exhibit" Type="Self.Exhibit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hall">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Exhibit">
+        <PropertyRef Name="hall_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibit_Painting">
+    <End Role="Painting" Type="Self.Painting" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Exhibit" Type="Self.Exhibit" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Painting">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Exhibit">
+        <PropertyRef Name="painting_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hall_Size">
+    <End Role="Size" Type="Self.Size" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Hall" Type="Self.Hall" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Size">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Hall">
+        <PropertyRef Name="size_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ticket_Profile">
+    <End Role="User_profile" Type="Self.User_profile" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_profile">
+        <PropertyRef Name="user_login" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="user_login" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MuseumContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="Art_movement" EntityType="Self.Art_movement" />
+    <EntitySet Name="Artists" EntityType="Self.Artist" />
+    <EntitySet Name="Exhibits" EntityType="Self.Exhibit" />
+    <EntitySet Name="Halls" EntityType="Self.Hall" />
+    <EntitySet Name="Paintings" EntityType="Self.Painting" />
+    <EntitySet Name="Sizes" EntityType="Self.Size" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+    <EntitySet Name="User_profile" EntityType="Self.User_profile" />
+    <AssociationSet Name="FK_Profile_User" Association="Self.FK_Profile_User">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="User_profile" EntitySet="User_profile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Painting_ArtMovement" Association="Self.FK_Painting_ArtMovement">
+      <End Role="Art_movement" EntitySet="Art_movement" />
+      <End Role="Painting" EntitySet="Paintings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Painting_Artist" Association="Self.FK_Painting_Artist">
+      <End Role="Artist" EntitySet="Artists" />
+      <End Role="Painting" EntitySet="Paintings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibit_Hall" Association="Self.FK_Exhibit_Hall">
+      <End Role="Hall" EntitySet="Halls" />
+      <End Role="Exhibit" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibit_Painting" Association="Self.FK_Exhibit_Painting">
+      <End Role="Painting" EntitySet="Paintings" />
+      <End Role="Exhibit" EntitySet="Exhibits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hall_Size" Association="Self.FK_Hall_Size">
+      <End Role="Size" EntitySet="Sizes" />
+      <End Role="Hall" EntitySet="Halls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ticket_Profile" Association="Self.FK_Ticket_Profile">
+      <End Role="User_profile" EntitySet="User_profile" />
+      <End Role="Ticket" EntitySet="Tickets" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

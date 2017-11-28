@@ -1,0 +1,48 @@
+﻿<Window x:Class="CourseDB.PaintingFilterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourseDB"
+        mc:Ignorable="d"
+        Title="PaintingFilterWindow" Height="450" Width="450" Loaded="Window_Loaded" Name="UI" Closing="Window_Closing">
+    <Window.Resources>
+        <local:TwoBoolConverter x:Key="TwoBoolConverter" />
+    </Window.Resources>
+    <Grid>
+        <StackPanel IsEnabled="{Binding ElementName=MovementChoiceCheckBox, Path=IsChecked}" Margin="216,6,0.333,261.667">
+            <Label>Принадлежит к направлению</Label>
+            <ComboBox ItemsSource="{Binding Source={StaticResource art_movementViewSource}}" Name="ChosenMovement" DisplayMemberPath="name" SelectedValuePath="id"></ComboBox>
+        </StackPanel>
+        <ListBox x:Name="ListOfFilters" Margin="0,0,271.333,-0.333"/>
+
+        <Button Height="50" Content="Добавить фильтр" Margin="200,361,128.333,9.667" Click="Add_Click">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource TwoBoolConverter}">
+                    <Binding ElementName="MovementChoiceCheckBox" Path="IsChecked"></Binding>
+                    <Binding ElementName="YearChoiceCheckBox" Path="IsChecked"></Binding>
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
+        <Button Height="50" Content="Удалить фильтр" Margin="320,361,28.333,9.667" Click="Delete_Click"/>
+        <StackPanel IsEnabled="{Binding ElementName=YearChoiceCheckBox, Path=IsChecked}" VerticalAlignment="Top" Width="219" HorizontalAlignment="Center" Height="126" Margin="216,172,8.333,0" >
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Margin" Value="25, 0, 25, 0"/>
+                    <Setter Property="Width" Value="50"/>
+                    <Setter Property="FontSize" Value="18"/>
+                </Style>
+            </StackPanel.Resources>
+            <Label HorizontalAlignment="Center" Height="31" Margin="0" VerticalAlignment="Top" Content="Создана в период" Width="118"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox  Text="*" x:Name="FromYear"/>
+                <TextBlock FontSize="18"><Run Text="ПО"/></TextBlock>
+                <TextBox  Text="*" x:Name="ToYear"/>
+            </StackPanel>
+            <Label HorizontalAlignment="Center" Margin="0, 10, 0, 0" Content="Название фильтра"/>
+        </StackPanel>
+        <TextBox x:Name="FilterName" Width="100" Text="Фильтр" Margin="264,305,79.333,85.667"/>
+        <CheckBox HorizontalAlignment="Left" Margin="187,88,0,0" VerticalAlignment="Top" x:Name="MovementChoiceCheckBox"/>
+        <CheckBox HorizontalAlignment="Left" Margin="187,209,0,0" VerticalAlignment="Top" x:Name="YearChoiceCheckBox"/>
+    </Grid>
+</Window>

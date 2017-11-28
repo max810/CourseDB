@@ -1,0 +1,39 @@
+﻿<Window x:Class="CourseDB.ArtistFilterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourseDB"
+        mc:Ignorable="d"
+        Title="ArtistFilterWindow" Height="300" Width="450" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="ListOfFilters">
+        </ListBox>
+        <StackPanel Grid.Column="1" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Margin" Value="25, 0, 25, 0"></Setter>
+                    <Setter Property="Width" Value="50"></Setter>
+                    <Setter Property="FontSize" Value="18"></Setter>
+                </Style>
+            </StackPanel.Resources>
+            <Label HorizontalAlignment="Center" Height="31" Margin="90,0" VerticalAlignment="Top">Годы жизни</Label>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="FromYear">*</TextBox>
+                <TextBlock FontSize="18"> ПО</TextBlock>
+                <TextBox x:Name="ToYear">*</TextBox>
+            </StackPanel>
+            <Label HorizontalAlignment="Center" Margin="0, 10, 0, 0">Название фильтра</Label>
+            <TextBox x:Name="FilterName" Width="100">Фильтр</TextBox>
+        </StackPanel>
+        <Button Grid.Column="1" Width="100" Height="50" Content="Добавить фильтр" Margin="4.667,183,117.333,37.667" Click="Add_Click"></Button>
+        <Button Grid.Column="1" Height="50" Content="Удалить фильтр" Margin="111.667,183,0.333,37.667" Click="Delete_Click"/>
+    </Grid>
+</Window>

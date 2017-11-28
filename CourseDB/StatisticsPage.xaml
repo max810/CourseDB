@@ -1,0 +1,34 @@
+﻿<Page x:Class="CourseDB.StatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseDB"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="500"
+      xmlns:oxy="http://oxyplot.org/wpf"
+      Title="Statistics">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label FontSize="16" FontFamily="Consolas" Content="Статистика по картинам выбранного художника (картины с неизвестным годом написания не учитываются)" HorizontalAlignment="Center" Margin="0,0,0,0.333" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Width="500" Background="Black" Foreground="White"/>
+        <oxy:PlotView x:Name="Plot" Model="{Binding StatModel}" Grid.Row="1">
+
+        </oxy:PlotView>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <ComboBox x:Name="ChosenArtist" ItemsSource="{Binding Source={StaticResource artistViewSource}}" DisplayMemberPath="full_name" SelectedValuePath="id" SelectedValue="{Binding Artist_Id}" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="105"/>
+            <Label Content="Художник" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="105"/>
+        </Grid>
+    </Grid>
+</Page>

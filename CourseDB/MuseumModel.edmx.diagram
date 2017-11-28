@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6268758bfc6642fdb0489ac2f27821a4" Name="Diagram1">
+        <EntityTypeShape EntityType="MuseumModel.Account" Width="1.5" PointX="2.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MuseumModel.Art_movement" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MuseumModel.Artist" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MuseumModel.Exhibit" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MuseumModel.Hall" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MuseumModel.Painting" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MuseumModel.Size" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MuseumModel.Ticket" Width="1.5" PointX="7.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MuseumModel.User_profile" Width="1.5" PointX="5" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="MuseumModel.FK_Profile_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MuseumModel.FK_Painting_ArtMovement" ManuallyRouted="false" />
+        <AssociationConnector Association="MuseumModel.FK_Painting_Artist" ManuallyRouted="false" />
+        <AssociationConnector Association="MuseumModel.FK_Exhibit_Hall" ManuallyRouted="false" />
+        <AssociationConnector Association="MuseumModel.FK_Exhibit_Painting" ManuallyRouted="false" />
+        <AssociationConnector Association="MuseumModel.FK_Hall_Size" ManuallyRouted="false" />
+        <AssociationConnector Association="MuseumModel.FK_Ticket_Profile" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

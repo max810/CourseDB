@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MuseumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="login" />
+    </Key>
+    <Property Name="login" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Art_movement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="century_of_beginning" Type="int" Nullable="false" />
+    <Property Name="century_of_end" Type="int" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="4000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Artist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="full_name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="date_of_birth" Type="date" />
+    <Property Name="date_of_death" Type="date" />
+    <Property Name="biography" Type="varchar" MaxLength="4000" />
+  </EntityType>
+  <EntityType Name="Exhibit">
+    <Key>
+      <PropertyRef Name="painting_id" />
+    </Key>
+    <Property Name="painting_id" Type="int" Nullable="false" />
+    <Property Name="date_of_acquiring" Type="date" Nullable="false" />
+    <Property Name="is_original" Type="bit" Nullable="false" />
+    <Property Name="with" Type="int" Nullable="false" />
+    <Property Name="height" Type="int" Nullable="false" />
+    <Property Name="canvas_type" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="paint_type" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="hall_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Hall">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="subject" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="size_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Painting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="artist_id" Type="int" Nullable="false" />
+    <Property Name="year_of_creation" Type="int" />
+    <Property Name="image" Type="varbinary" MaxLength="8000" />
+    <Property Name="art_movement_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Size">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="max_exhibit_count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_login" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="date_of_visit" Type="date" Nullable="false" />
+    <Property Name="time_of_visit" Type="time" Precision="7" Nullable="false" />
+    <Property Name="with_guide" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User_profile">
+    <Key>
+      <PropertyRef Name="user_login" />
+    </Key>
+    <Property Name="user_login" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="surname" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="is_admin" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Exhibit_Hall">
+    <End Role="Hall" Type="Self.Hall" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Exhibit" Type="Self.Exhibit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hall">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Exhibit">
+        <PropertyRef Name="hall_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Exhibit_Painting">
+    <End Role="Painting" Type="Self.Painting" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Exhibit" Type="Self.Exhibit" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Painting">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Exhibit">
+        <PropertyRef Name="painting_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hall_Size">
+    <End Role="Size" Type="Self.Size" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Hall" Type="Self.Hall" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Size">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Hall">
+        <PropertyRef Name="size_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Painting_Artist">
+    <End Role="Artist" Type="Self.Artist" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Painting" Type="Self.Painting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Painting">
+        <PropertyRef Name="artist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Painting_ArtMovement">
+    <End Role="Art_movement" Type="Self.Art_movement" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Painting" Type="Self.Painting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Art_movement">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Painting">
+        <PropertyRef Name="art_movement_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Profile_User">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="User_profile" Type="Self.User_profile" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="login" />
+      </Principal>
+      <Dependent Role="User_profile">
+        <PropertyRef Name="user_login" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ticket_Profile">
+    <End Role="User_profile" Type="Self.User_profile" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_profile">
+        <PropertyRef Name="user_login" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="user_login" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MuseumModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Art_movement" EntityType="Self.Art_movement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exhibit" EntityType="Self.Exhibit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hall" EntityType="Self.Hall" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Painting" EntityType="Self.Painting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Size" EntityType="Self.Size" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_profile" EntityType="Self.User_profile" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Exhibit_Hall" Association="Self.FK_Exhibit_Hall">
+      <End Role="Hall" EntitySet="Hall" />
+      <End Role="Exhibit" EntitySet="Exhibit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Exhibit_Painting" Association="Self.FK_Exhibit_Painting">
+      <End Role="Painting" EntitySet="Painting" />
+      <End Role="Exhibit" EntitySet="Exhibit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hall_Size" Association="Self.FK_Hall_Size">
+      <End Role="Size" EntitySet="Size" />
+      <End Role="Hall" EntitySet="Hall" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Painting_Artist" Association="Self.FK_Painting_Artist">
+      <End Role="Artist" EntitySet="Artist" />
+      <End Role="Painting" EntitySet="Painting" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Painting_ArtMovement" Association="Self.FK_Painting_ArtMovement">
+      <End Role="Art_movement" EntitySet="Art_movement" />
+      <End Role="Painting" EntitySet="Painting" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Profile_User" Association="Self.FK_Profile_User">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="User_profile" EntitySet="User_profile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ticket_Profile" Association="Self.FK_Ticket_Profile">
+      <End Role="User_profile" EntitySet="User_profile" />
+      <End Role="Ticket" EntitySet="Ticket" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

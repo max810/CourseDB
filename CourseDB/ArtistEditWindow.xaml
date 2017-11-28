@@ -1,0 +1,29 @@
+﻿<Window x:Class="CourseDB.ArtistEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourseDB"
+        mc:Ignorable="d"
+        Title="ArtistWindow" Height="400"  Width="300" Name="UI">
+    <Window.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="HorizontalContentAlignment" Value="Right"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="0,0,0.333,-3.333" Height="274" VerticalAlignment="Top">
+        <TextBox MinWidth="100" HorizontalAlignment="Left" Text="{Binding ElementName=UI, Path=CurrentArtist.full_name, UpdateSourceTrigger=PropertyChanged}" Height="28" Margin="98,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox  Text="{Binding ElementName=UI, Path=CurrentArtist.biography, UpdateSourceTrigger=PropertyChanged}" Height="70" Margin="98,166,0,0" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <DatePicker SelectedDate="{Binding ElementName=UI, Path=CurrentArtist.date_of_birth, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="98,98,0,0" VerticalAlignment="Top" Height="29"/>
+        <DatePicker SelectedDate="{Binding ElementName=UI, Path=CurrentArtist.date_of_death, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="98,131,0,0" VerticalAlignment="Top" Height="30"/>
+        <Label Content="Полное имя" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Height="28" />
+        <Label Content="Дата рождения" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Height="29"/>
+        <Label Content="Дата смерти" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Height="30"/>
+        <Label Content="Биография" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="28" />
+        <Label Content="Художник" FontSize="18" HorizontalAlignment="Left" Margin="98,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="Сохранить" HorizontalAlignment="Left" Height="43" Margin="35,303,0,-72" VerticalAlignment="Top" Click="Save_Click"/>
+        <Button Content="Отменить" HorizontalAlignment="Left" Height="43" Margin="151,303,0,-72" VerticalAlignment="Top" Click="Cancel_Click"/>
+
+    </Grid>
+</Window>
