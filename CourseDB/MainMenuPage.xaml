@@ -7,10 +7,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="500" Background="Brown"
       Title="MainMenuPage">
-
     <Grid>
-        <Grid Margin="25" Height="150" Width="450">
+        <Grid Margin="25" Height="150">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -18,6 +18,7 @@
             <Button Click="Button_Click">Экспонаты музея</Button>
             <Button Grid.Column="1" Click="Button_Click_1">База знаний художников</Button>
             <Button Grid.Column="2" Click="Button_Click_2">Статистика</Button>
+            <Button Grid.Column="3" Click="Button_Click_3">Отчеты</Button>
         </Grid>
     </Grid>
 </Page>

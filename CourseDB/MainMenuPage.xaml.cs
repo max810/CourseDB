@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Office.Interop;
 
 namespace CourseDB
 {
@@ -23,6 +24,7 @@ namespace CourseDB
         public MainMenuPage()
         {
             InitializeComponent();
+            //Microsoft.Office.Interop.Word.
         }
         
         public event MessageSentEventHandler MessageSent;
@@ -39,7 +41,7 @@ namespace CourseDB
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Log("First Button clicked");
+            Navigate(new ExhibitPage());
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -49,8 +51,12 @@ namespace CourseDB
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-
             Navigate(new StatisticsPage());
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Navigate(new ReportsPage());
         }
     }
 }

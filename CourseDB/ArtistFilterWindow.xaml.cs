@@ -53,7 +53,7 @@ namespace CourseDB
             var selected = ListOfFilters.SelectedItem;
             if (selected != null)
             {
-                Context.artistViewSource.Filter -= Context.ArtistFilters[ListOfFilters.SelectedIndex];
+                Context.artistFilterHandler.Filter -= Context.ArtistFilters[ListOfFilters.SelectedIndex];
                 Context.ArtistFilters.RemoveAt(ListOfFilters.SelectedIndex);
                 ListOfFilters.Items.Remove(ListOfFilters.SelectedItem);
             }

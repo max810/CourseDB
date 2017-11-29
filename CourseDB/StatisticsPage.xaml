@@ -22,13 +22,15 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label FontSize="16" FontFamily="Consolas" Content="Статистика по картинам выбранного художника (картины с неизвестным годом написания не учитываются)" HorizontalAlignment="Center" Margin="0,0,0,0.333" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Width="500" Background="Black" Foreground="White"/>
+        <Label FontSize="16" FontFamily="Consolas" Content="Статистика по картинам выбранного художника (картины с неизвестным годом написания не учитываются)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Background="Black" Foreground="White"/>
         <oxy:PlotView x:Name="Plot" Model="{Binding StatModel}" Grid.Row="1">
 
         </oxy:PlotView>
         <Grid Grid.Row="1" Grid.Column="1">
             <ComboBox x:Name="ChosenArtist" ItemsSource="{Binding Source={StaticResource artistViewSource}}" DisplayMemberPath="full_name" SelectedValuePath="id" SelectedValue="{Binding Artist_Id}" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="105"/>
             <Label Content="Художник" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Width="105"/>
+            <Button Content="Сохранить изобр." HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="105" Height="28" Click="SaveButton_Click"/>
+            <Button Content="Сохранить в PDF" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Width="105" Height="28" Click="SavePdf_Click"/>
         </Grid>
     </Grid>
 </Page>

@@ -61,7 +61,7 @@
                 <Button Content="Изменить" Click="EditArtistClick"/>
                 <Button Content="Удалить" Click="DeleteArtist_Click"/>
             </StackPanel>
-            <DataGrid Height="200" x:Name="artistDataGrid" local:DataGridSearch.SearchValue="{Binding ElementName=ArtistSearchBox, Path=Text, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid IsReadOnly="True" Height="200" x:Name="artistDataGrid" local:DataGridSearch.SearchValue="{Binding ElementName=ArtistSearchBox, Path=Text, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="idColumn" Binding="{Binding id}" Header="id" Width="SizeToHeader"/>
                     <DataGridTextColumn x:Name="full_nameColumn" Binding="{Binding full_name}" Header="full name" Width="0.5*" MaxWidth="200"/>
@@ -101,7 +101,7 @@
                 <Button Content="Изменить" Click="EditPainting_Click"/>
                 <Button Content="Удалить" Click="DeletePainting_Click"/>
             </StackPanel>
-            <DataGrid Height="200" local:DataGridSearch.SearchValue="{Binding Text, ElementName=PaintingSearchBox, UpdateSourceTrigger=PropertyChanged}" x:Name="paintingsDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource artistPaintingsViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid IsReadOnly="True" Height="200" local:DataGridSearch.SearchValue="{Binding Text, ElementName=PaintingSearchBox, UpdateSourceTrigger=PropertyChanged}" x:Name="paintingsDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource artistPaintingsViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="idColumn1" Binding="{Binding id}" Header="id" Width="SizeToHeader"/>
                     <DataGridTextColumn x:Name="nameColumn" Binding="{Binding name}" Header="name" Width="0.5*" MaxWidth="200"/>

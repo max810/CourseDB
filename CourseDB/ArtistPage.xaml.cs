@@ -30,6 +30,9 @@ namespace CourseDB
         public CollectionViewSource art_movementViewSource;
         public ArtistFilterWindow artistFilterWindow;
         public PaintingFilterWindow paintingFilterWindow;
+
+        public MultipleFilterHandler artistFilterHandler;
+        public MultipleFilterHandler paintingFilterHandler;
         public ArtistPage()
         {
             InitializeComponent();
@@ -45,6 +48,10 @@ namespace CourseDB
 
             paintingViewSource = this.FindResource("artistPaintingsViewSource") as CollectionViewSource;
             context.Paintings.Load();
+
+            artistFilterHandler = new MultipleFilterHandler(artistViewSource, MultipleFilterLogic.And);
+            paintingFilterHandler = new MultipleFilterHandler(paintingViewSource, MultipleFilterLogic.And);
+
         }
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
@@ -54,8 +61,8 @@ namespace CourseDB
             {
                 foreach (var filter in ArtistFilters)
                 {
-                    artistViewSource.Filter -= filter;
-                    artistViewSource.Filter += filter;
+                    artistFilterHandler.Filter -= filter;
+                    artistFilterHandler.Filter += filter;
                 }
             }
         }
@@ -67,8 +74,8 @@ namespace CourseDB
             {
                 foreach (var filter in PaintingFilters)
                 {
-                    paintingViewSource.Filter -= filter;
-                    paintingViewSource.Filter += filter;
+                    paintingFilterHandler.Filter -= filter;
+                    paintingFilterHandler.Filter += filter;
                 }
             }
         }
@@ -160,5 +167,62 @@ namespace CourseDB
         {
             MessageSent.Invoke(this, new MessageSentEventArgs(MessageType.Navigation, destination));
         }
+    }
+
+    public class MultipleFilterHandler
+    {
+        private readonly CollectionViewSource collection;
+
+        public MultipleFilterLogic Operation { get; set; }
+
+        public MultipleFilterHandler(CollectionViewSource collection, MultipleFilterLogic operation)
+        {
+            this.collection = collection;
+            this.Operation = operation;
+        }
+
+        public MultipleFilterHandler(CollectionViewSource collection) :
+            this(collection, MultipleFilterLogic.Or)
+        {
+        }
+
+        private event FilterEventHandler _filter;
+        public event FilterEventHandler Filter
+        {
+            add
+            {
+                _filter += value;
+
+                collection.Filter -= new FilterEventHandler(CollectionViewFilter);
+                collection.Filter += new FilterEventHandler(CollectionViewFilter);
+            }
+            remove
+            {
+                _filter -= value;
+
+                collection.Filter -= new FilterEventHandler(CollectionViewFilter);
+                collection.Filter += new FilterEventHandler(CollectionViewFilter);
+            }
+        }
+
+        private void CollectionViewFilter(object sender, FilterEventArgs e)
+        {
+            if (_filter == null)
+                return;
+
+            foreach (FilterEventHandler invocation in _filter.GetInvocationList())
+            {
+                invocation(sender, e);
+
+                if ((Operation == MultipleFilterLogic.And && !e.Accepted) || (Operation == MultipleFilterLogic.Or && e.Accepted))
+                    return;
+            }
+        }
+    }
+
+    public enum MultipleFilterLogic
+    {
+        And,
+        Or
     }
 }

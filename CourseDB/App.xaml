@@ -8,6 +8,7 @@
         <CollectionViewSource x:Key="artistViewSource" />
         <CollectionViewSource x:Key="paintingViewSource" />
         <CollectionViewSource x:Key="art_movementViewSource" />
+        <CollectionViewSource x:Key="exhibitViewSource" />
         <local:MuseumContext x:Key="museumContext"></local:MuseumContext>
     </Application.Resources>
 </Application>

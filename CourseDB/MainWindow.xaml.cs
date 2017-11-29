@@ -72,5 +72,10 @@ namespace CourseDB
             Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
             Application.Current.Shutdown();
         }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

@@ -44,3 +44,14 @@ C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug
 C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug\OxyPlot.Wpf.xml
 C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\StatisticsPage.g.cs
 C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\StatisticsPage.baml
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ReportsPage.g.cs
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ReportsPage.baml
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\CourseDB.csproj.ResolveComReference.cache
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug\Microsoft.Office.Interop.Word.dll
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug\office.dll
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug\Microsoft.Vbe.Interop.dll
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug\stdole.dll
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug\Microsoft.Office.Interop.Word.xml
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug\office.xml
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ExhibitPage.g.cs
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ExhibitPage.baml

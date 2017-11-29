@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Axes;
+using OxyPlot.Wpf;
+using Microsoft.Win32;
 
 namespace CourseDB
 {
@@ -33,7 +35,11 @@ namespace CourseDB
         {
             InitializeComponent();
             StatModel = new PlotModel();
-            this.Loaded += (s, e) => ChosenArtist.SelectionChanged += ChosenArtist_SelectionChanged;
+            this.Loaded += (s, e) =>
+            {
+                ChosenArtist.SelectionChanged += ChosenArtist_SelectionChanged;
+                ChosenArtist.SelectedIndex = 0;
+            };
             DataContext = this;
         }
 
@@ -51,8 +57,8 @@ namespace CourseDB
             StatModel.Series.Clear();
             StatModel.Axes.Clear();
 
-            var categoryAxis = new CategoryAxis { Position = AxisPosition.Bottom };
-            var s1 = new ColumnSeries { Title = $"Творчество художника ({artist.full_name})", StrokeColor = OxyColors.Black, StrokeThickness = 1 };
+            var categoryAxis = new OxyPlot.Axes.CategoryAxis { Position = AxisPosition.Bottom };
+            var s1 = new OxyPlot.Series.ColumnSeries { Title = $"Творчество художника ({artist.full_name})", StrokeColor = OxyColors.Black, StrokeThickness = 1 };
 
             var paintings = context.Paintings.Where(x => x.artist_id == artist.id && x.year_of_creation != null).OrderBy(x => x.year_of_creation).ToArray();
             if (paintings.Any())
@@ -83,12 +89,42 @@ namespace CourseDB
                     }
                 }
 
-                var valueAxis = new LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, MaximumPadding = 0.06, AbsoluteMinimum = 0 };
+                var valueAxis = new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, MaximumPadding = 0.06, AbsoluteMinimum = 0 };
 
                 StatModel.Series.Add(s1);
                 StatModel.Axes.Add(categoryAxis);
                 StatModel.Axes.Add(valueAxis);
                 StatModel.InvalidatePlot(true);
+            }
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            PngExporter x = new PngExporter();
+            var dialog = new SaveFileDialog()
+            {
+                Filter = "Image Files (*.png)|*.png;"
+            };
+            if(dialog.ShowDialog() == true)
+            {
+                x.ExportToFile(StatModel, dialog.FileName);
+            }
+        }
+
+        private void SavePdf_Click(object sender, RoutedEventArgs e)
+        {
+            PdfExporter x = new PdfExporter()
+            {
+                Width = 700,
+                Height = 400
+            };
+            var dialog = new SaveFileDialog()
+            {
+                Filter = "Potable Document Files (*.pdf)|*.pdf;"
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                x.ExportToFile(StatModel, dialog.FileName);
             }
         }
     }
