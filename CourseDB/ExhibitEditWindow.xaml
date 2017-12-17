@@ -1,0 +1,42 @@
+﻿<Window x:Class="CourseDB.ExhibitEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourseDB"
+        mc:Ignorable="d"
+        Title="ExhibitEditWindow" Height="450" Width="300" x:Name="UI" Loaded="UI_Loaded">
+    <Grid>
+        <Label Content="Экспонат" FontSize="18" HorizontalAlignment="Center" Margin="100,10,104.333,0" VerticalAlignment="Top" Width="89"/>
+        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding Source={StaticResource paintingViewSource}}" Height="28" Margin="135,65,0,0" DisplayMemberPath="name" SelectedValuePath="id" SelectedValue="{Binding ElementName=UI, Path=CurrentExhibit.painting_id, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <DatePicker SelectedDate="{Binding ElementName=UI, Path=CurrentExhibit.date_of_acquiring}" HorizontalAlignment="Left" Margin="135,98,0,0" VerticalAlignment="Top" Width="120" Height="29" />
+        <CheckBox IsChecked="{Binding ElementName=UI, Path=CurrentExhibit.is_original}" HorizontalAlignment="Left" Margin="135,137,0,0" VerticalAlignment="Top" Width="120" Height="30" />
+        <Label Content="Картина" HorizontalAlignment="Left" Margin="37,65,0,0" VerticalAlignment="Top" Height="28" Width="93"/>
+        <Label Content="Дата приобр." HorizontalAlignment="Left" Margin="37,98,0,0" VerticalAlignment="Top" Height="29" Width="93"/>
+        <Label Content="Оригинал" HorizontalAlignment="Left" Margin="37,131,0,0" VerticalAlignment="Top" Height="30" Width="93"/>
+        <Button Content="Сохранить" HorizontalAlignment="Left" Height="43" Margin="31,368,0,0" VerticalAlignment="Top" Width="111" Click="Save_Click"/>
+        <Button Content="Отменить" HorizontalAlignment="Left" Height="43" Margin="153,368,0,0" VerticalAlignment="Top" Width="111" Click="Cancel_Click"/>
+        <TextBox HorizontalAlignment="Left" Margin="135,167,0,0" VerticalAlignment="Top" Width="120" Height="30" Text="{Binding ElementName=UI, Path=CurrentExhibit.width}" />
+        <Label Content="Ширина, см" HorizontalAlignment="Left" Margin="37,167,0,0" VerticalAlignment="Top" Height="30" Width="93"/>
+        <Label Content="Высота, см" HorizontalAlignment="Left" Margin="37,202,0,0" VerticalAlignment="Top" Height="30" Width="93"/>
+        <TextBox HorizontalAlignment="Left" Margin="135,202,0,0" VerticalAlignment="Top" Width="120" Height="30" Text="{Binding ElementName=UI, Path=CurrentExhibit.height}" />
+        <ComboBox x:Name="CanvasTypeComboBox" SelectedIndex="0" SelectedValue="{Binding ElementName=UI, Path=CurrentExhibit.canvas_type}" Margin="135,237,38.333,153.667">
+            <ComboBoxItem>Холст</ComboBoxItem>
+            <ComboBoxItem>Бумага</ComboBoxItem>
+            <ComboBoxItem>Дерево</ComboBoxItem>
+            <ComboBoxItem>Другое</ComboBoxItem>
+        </ComboBox>
+        <Label Content="Тип холста" HorizontalAlignment="Left" Margin="37,237,0,0" VerticalAlignment="Top" Height="30" Width="93"/>
+        <ComboBox SelectedIndex="0" x:Name="PaintTypeComboBox" SelectedValue="{Binding CurrentExhibit.paint_type, ElementName=UI}" Margin="135,272,38.333,118.667">
+            <ComboBoxItem Content="Масло"/>
+            <ComboBoxItem Content="Свинцовая"/>
+            <ComboBoxItem Content="Акварель"/>
+            <ComboBoxItem Content="Гуашь"/>
+            <ComboBoxItem Content="Другое"/>
+        </ComboBox>
+        <Label Content="Тип краски" HorizontalAlignment="Left" Margin="37,272,0,0" VerticalAlignment="Top" Height="30" Width="93"/>
+        <ComboBox SelectedValue="{Binding CurrentExhibit.hall_id, ElementName=UI}" Margin="135,307,38.333,83.667" ItemsSource="{Binding Source={StaticResource hallViewSource}}" DisplayMemberPath="name" SelectedValuePath="id">
+        </ComboBox>
+        <Label Content="Зал" HorizontalAlignment="Left" Margin="37,307,0,0" VerticalAlignment="Top" Height="30" Width="93"/>
+    </Grid>
+</Window>

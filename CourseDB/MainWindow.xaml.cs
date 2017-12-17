@@ -32,6 +32,7 @@ namespace CourseDB
             state = newState;
             WriteToConsole($"Добро пожаловать, {state.CurrentUser.name} {state.CurrentUser.surname}!");
             WriteToConsole($"Сейчас {DateTime.Now}");
+            SetMainContent(new MainMenuPage());
         }
 
         private void WriteToConsole(string text)
@@ -69,7 +70,6 @@ namespace CourseDB
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
             Application.Current.Shutdown();
         }
 

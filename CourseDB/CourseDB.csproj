@@ -95,9 +95,17 @@
     <Compile Include="Art_movement.cs">
       <DependentUpon>MuseumModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Converters.cs" />
+    <Compile Include="DataGridExtensionClass.cs" />
     <Compile Include="DataGridSearch.cs" />
     <Compile Include="Exhibit.cs">
       <DependentUpon>MuseumModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExhibitEditWindow.xaml.cs">
+      <DependentUpon>ExhibitEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExhibitFilterWindow.xaml.cs">
+      <DependentUpon>ExhibitFilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExhibitPage.xaml.cs">
       <DependentUpon>ExhibitPage.xaml</DependentUpon>
@@ -105,6 +113,7 @@
     <Compile Include="Hall.cs">
       <DependentUpon>MuseumModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MultipleFilter.cs" />
     <Compile Include="MuseumModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -120,6 +129,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MuseumModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="NameGenerator.cs" />
     <Compile Include="Painting.cs">
       <DependentUpon>MuseumModel.tt</DependentUpon>
     </Compile>
@@ -168,6 +178,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ArtistEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExhibitEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExhibitFilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

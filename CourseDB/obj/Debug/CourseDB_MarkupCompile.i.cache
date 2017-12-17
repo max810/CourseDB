@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\App.xaml
-12-1949606152
+1433445275
 2235969948
-36-1344470438
+42-479825154
 75-1679387569
-ArtistFilterWindow.xaml;ArtistPage.xaml;ArtistEditWindow.xaml;ExhibitPage.xaml;LoginWindow.xaml;MainMenuPage.xaml;MainWindow.xaml;PaintingEditWindow.xaml;PaintingFilterWindow.xaml;ReportsPage.xaml;StatisticsPage.xaml;Switch.xaml;
+ArtistFilterWindow.xaml;ArtistPage.xaml;ArtistEditWindow.xaml;ExhibitEditWindow.xaml;ExhibitFilterWindow.xaml;ExhibitPage.xaml;LoginWindow.xaml;MainMenuPage.xaml;MainWindow.xaml;PaintingEditWindow.xaml;PaintingFilterWindow.xaml;ReportsPage.xaml;StatisticsPage.xaml;Switch.xaml;
 
-False
+True
 

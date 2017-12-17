@@ -22,62 +22,46 @@ namespace CourseDB
     /// </summary>
     public partial class ArtistPage : Page, INotifier
     {
-        public List<FilterEventHandler> ArtistFilters = new List<FilterEventHandler>();
-        public List<FilterEventHandler> PaintingFilters = new List<FilterEventHandler>();
         private MuseumContext context = App.Current.FindResource("museumContext") as MuseumContext;
-        public CollectionViewSource artistViewSource;
-        public CollectionViewSource paintingViewSource;
-        public CollectionViewSource art_movementViewSource;
         public ArtistFilterWindow artistFilterWindow;
         public PaintingFilterWindow paintingFilterWindow;
 
         public MultipleFilterHandler artistFilterHandler;
         public MultipleFilterHandler paintingFilterHandler;
+        private List<object> foundArtists;
+        private List<object> foundPaintings;
+        public int CurrentArtistFoundIndex { get; set; } = -1;
+        public int CurrentPaintingFoundIndex { get; set; } = -1;
         public ArtistPage()
         {
             InitializeComponent();
-            artistFilterWindow = new ArtistFilterWindow(this);
-            paintingFilterWindow = new PaintingFilterWindow(this);
         }
 
         public event MessageSentEventHandler MessageSent;
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            artistViewSource = App.Current.FindResource("artistViewSource") as CollectionViewSource;
+            //artistViewSource = ;
 
-            paintingViewSource = this.FindResource("artistPaintingsViewSource") as CollectionViewSource;
-            context.Paintings.Load();
+            //paintingViewSource = ;
+            //context.Paintings.Load(); - already done in App.xaml.cs
 
-            artistFilterHandler = new MultipleFilterHandler(artistViewSource, MultipleFilterLogic.And);
-            paintingFilterHandler = new MultipleFilterHandler(paintingViewSource, MultipleFilterLogic.And);
+            artistFilterHandler = new MultipleFilterHandler(App.Current.FindResource("artistViewSource") as CollectionViewSource, MultipleFilterLogic.And);
+            paintingFilterHandler = new MultipleFilterHandler(this.FindResource("artistPaintingsViewSource") as CollectionViewSource, MultipleFilterLogic.And);
+
+            artistFilterWindow = new ArtistFilterWindow(artistFilterHandler);
+            paintingFilterWindow = new PaintingFilterWindow(paintingFilterHandler);
 
         }
 
-        private void FilterButton_Click(object sender, RoutedEventArgs e)
+        private void ArtistFilterButton_Click(object sender, RoutedEventArgs e)
         {
             artistFilterWindow.ShowDialog();
-            if (ArtistFilters.Any())
-            {
-                foreach (var filter in ArtistFilters)
-                {
-                    artistFilterHandler.Filter -= filter;
-                    artistFilterHandler.Filter += filter;
-                }
-            }
         }
 
-        private void PaintingButton_Click(object sender, RoutedEventArgs e)
+        private void PaintingFilterButton_Click(object sender, RoutedEventArgs e)
         {
             paintingFilterWindow.ShowDialog();
-            if (PaintingFilters.Any())
-            {
-                foreach (var filter in PaintingFilters)
-                {
-                    paintingFilterHandler.Filter -= filter;
-                    paintingFilterHandler.Filter += filter;
-                }
-            }
         }
 
         private void AddArtistClick(object sender, RoutedEventArgs e)
@@ -167,62 +151,45 @@ namespace CourseDB
         {
             MessageSent.Invoke(this, new MessageSentEventArgs(MessageType.Navigation, destination));
         }
-    }
 
-    public class MultipleFilterHandler
-    {
-        private readonly CollectionViewSource collection;
-
-        public MultipleFilterLogic Operation { get; set; }
-
-        public MultipleFilterHandler(CollectionViewSource collection, MultipleFilterLogic operation)
+        private void NextFoundArtistButton_Click(object sender, RoutedEventArgs e)
         {
-            this.collection = collection;
-            this.Operation = operation;
+            CurrentArtistFoundIndex = artistDataGrid.MoveFoundPointer(Direction.Forward, CurrentArtistFoundIndex, foundArtists);
         }
 
-        public MultipleFilterHandler(CollectionViewSource collection) :
-            this(collection, MultipleFilterLogic.Or)
+        private void ArtistSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            foundArtists = artistDataGrid.GetFoundItems().ToList();
         }
 
-        private event FilterEventHandler _filter;
-        public event FilterEventHandler Filter
+        private void PreviousFoundArtistButton_Click(object sender, RoutedEventArgs e)
         {
-            add
-            {
-                _filter += value;
-
-                collection.Filter -= new FilterEventHandler(CollectionViewFilter);
-                collection.Filter += new FilterEventHandler(CollectionViewFilter);
-            }
-            remove
-            {
-                _filter -= value;
-
-                collection.Filter -= new FilterEventHandler(CollectionViewFilter);
-                collection.Filter += new FilterEventHandler(CollectionViewFilter);
-            }
+            CurrentArtistFoundIndex = artistDataGrid.MoveFoundPointer(Direction.BackWard, CurrentArtistFoundIndex, foundArtists);
         }
 
-        private void CollectionViewFilter(object sender, FilterEventArgs e)
+        private void PreviousFoundPaintingButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_filter == null)
-                return;
-
-            foreach (FilterEventHandler invocation in _filter.GetInvocationList())
-            {
-                invocation(sender, e);
-
-                if ((Operation == MultipleFilterLogic.And && !e.Accepted) || (Operation == MultipleFilterLogic.Or && e.Accepted))
-                    return;
-            }
+            CurrentPaintingFoundIndex = paintingsDataGrid.MoveFoundPointer(Direction.BackWard, CurrentPaintingFoundIndex, foundPaintings);
         }
-    }
 
-    public enum MultipleFilterLogic
-    {
-        And,
-        Or
+        private void NextFoundPaintingButton_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentPaintingFoundIndex = paintingsDataGrid.MoveFoundPointer(Direction.Forward, CurrentPaintingFoundIndex, foundPaintings);
+        }
+
+        private void ClearAllArtistFiltersButton_Click(object sender, RoutedEventArgs e)
+        {
+            artistFilterWindow.ClearAllFilters();
+        }
+
+        private void ClearAllPaintingFiltersButton_Click(object sender, RoutedEventArgs e)
+        {
+            paintingFilterWindow.ClearAllFilters();
+        }
+
+        private void PaintingSearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            foundPaintings = paintingsDataGrid.GetFoundItems().ToList();
+        }
     }
 }

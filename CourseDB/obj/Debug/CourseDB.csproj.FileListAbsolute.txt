@@ -55,3 +55,7 @@ C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug
 C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\bin\Debug\office.xml
 C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ExhibitPage.g.cs
 C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ExhibitPage.baml
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ExhibitFilterWindow.g.cs
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ExhibitFilterWindow.baml
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ExhibitEditWindow.g.cs
+C:\Users\maxbe\Documents\Visual Studio 2017\Projects\CourseDB\CourseDB\obj\Debug\ExhibitEditWindow.baml

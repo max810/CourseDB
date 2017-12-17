@@ -9,7 +9,11 @@
         <CollectionViewSource x:Key="paintingViewSource" />
         <CollectionViewSource x:Key="art_movementViewSource" />
         <CollectionViewSource x:Key="exhibitViewSource" />
+        <CollectionViewSource x:Key="hallViewSource" />
         <local:MuseumContext x:Key="museumContext"></local:MuseumContext>
+        <local:SearchValueConverter x:Key="SearchValueConverter" />
+        <local:BooleanConverter x:Key="BooleanConverter"></local:BooleanConverter>
+        <local:DateConverter x:Key="DateConverter"></local:DateConverter>
+        <local:AnyBoolConverter x:Key="AnyBoolConverter"></local:AnyBoolConverter>
     </Application.Resources>
 </Application>
-<!--d:DesignSource="{d:DesignInstance {x:Type local:Artist}, CreateList=True}"-->

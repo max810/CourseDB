@@ -20,24 +20,28 @@ namespace CourseDB
     /// </summary>
     public partial class ArtistFilterWindow : Window
     {
-        private ArtistPage Context;
-        public ArtistFilterWindow(ArtistPage context)
+        public MultipleFilterHandler Filters { get; set; }
+        public Dictionary<string, FilterEventHandler> Delegates { get; set; }
+        public ArtistFilterWindow(MultipleFilterHandler filters)
         {
+            Filters = filters;
+            Delegates = new Dictionary<string, FilterEventHandler>();
             InitializeComponent();
-            Context = context;
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            int from = FromYear.Text.Trim() == "*" || string.IsNullOrWhiteSpace(FromYear.Text) ? int.MinValue : int.Parse(FromYear.Text);
-            int to = ToYear.Text.Trim() == "*" || string.IsNullOrWhiteSpace(ToYear.Text) ? int.MaxValue : int.Parse(ToYear.Text);
+            int from = Misc.FromMask(FromYear.Text, int.MinValue);
+            int to = Misc.FromMask(ToYear.Text, int.MaxValue);
             FilterEventHandler handler = (s, ee) =>
             {
                 var art = ee.Item as Artist;
                 ee.Accepted = art.date_of_birth.Value.Year >= from && art.date_of_death.Value.Year <= to;
             };
-            Context.ArtistFilters.Add(handler);
+            Filters.Filter += handler;
             ListOfFilters.Items.Add(FilterName.Text);
+            Delegates.Add(FilterName.Text, handler);
+            FilterName.Text = NameGenerator.GenerateName(ListOfFilters.Items, "Фильтр");
             FromYear.Text = "*";
             ToYear.Text = "*";
         }
@@ -50,13 +54,36 @@ namespace CourseDB
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            var selected = ListOfFilters.SelectedItem;
+            var selected = ListOfFilters.SelectedItem?.ToString();
             if (selected != null)
             {
-                Context.artistFilterHandler.Filter -= Context.ArtistFilters[ListOfFilters.SelectedIndex];
-                Context.ArtistFilters.RemoveAt(ListOfFilters.SelectedIndex);
-                ListOfFilters.Items.Remove(ListOfFilters.SelectedItem);
+                Filters.Filter -= Delegates[selected];
+                Delegates.Remove(selected);
+                ListOfFilters.Items.Remove(selected);
             }
+            FromYear.Text = "*";
+            ToYear.Text = "*";
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Filters.Operation = MultipleFilterLogic.And;
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            Filters.Operation = MultipleFilterLogic.Or;
+        }
+
+        public void ClearAllFilters()
+        {
+            foreach(var handler in Delegates)
+            {
+                Filters.Filter -= handler.Value;
+            }
+            Delegates.Clear();
+            ListOfFilters.Items.Clear();
+            FilterName.Text = NameGenerator.GenerateName(ListOfFilters.Items, "Фильтр");
             FromYear.Text = "*";
             ToYear.Text = "*";
         }

@@ -5,20 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseDB"
         mc:Ignorable="d"
-        Title="PaintingFilterWindow" Height="450" Width="450" Loaded="Window_Loaded" Name="UI" Closing="Window_Closing">
-    <Window.Resources>
-        <local:TwoBoolConverter x:Key="TwoBoolConverter" />
-    </Window.Resources>
+        Title="PaintingFilterWindow" Height="450" Width="450" Loaded="Window_Loaded" Name="UI" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid>
         <StackPanel IsEnabled="{Binding ElementName=MovementChoiceCheckBox, Path=IsChecked}" Margin="216,6,0.333,261.667">
             <Label>Принадлежит к направлению</Label>
             <ComboBox ItemsSource="{Binding Source={StaticResource art_movementViewSource}}" Name="ChosenMovement" DisplayMemberPath="name" SelectedValuePath="id"></ComboBox>
         </StackPanel>
-        <ListBox x:Name="ListOfFilters" Margin="0,0,271.333,-0.333"/>
+        <ListBox x:Name="ListOfFilters" Margin="0,0,271.333,29.667"/>
 
         <Button Height="50" Content="Добавить фильтр" Margin="200,361,128.333,9.667" Click="Add_Click">
             <Button.IsEnabled>
-                <MultiBinding Converter="{StaticResource TwoBoolConverter}">
+                <MultiBinding Converter="{StaticResource AnyBoolConverter}">
                     <Binding ElementName="MovementChoiceCheckBox" Path="IsChecked"></Binding>
                     <Binding ElementName="YearChoiceCheckBox" Path="IsChecked"></Binding>
                 </MultiBinding>
@@ -44,5 +41,7 @@
         <TextBox x:Name="FilterName" Width="100" Text="Фильтр" Margin="264,305,79.333,85.667"/>
         <CheckBox HorizontalAlignment="Left" Margin="187,88,0,0" VerticalAlignment="Top" x:Name="MovementChoiceCheckBox"/>
         <CheckBox HorizontalAlignment="Left" Margin="187,209,0,0" VerticalAlignment="Top" x:Name="YearChoiceCheckBox"/>
+        <RadioButton IsChecked="True" Content="Все сразу" GroupName="FilterMode" HorizontalAlignment="Left" Margin="10,396,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
+        <RadioButton Content="Хотя бы один" GroupName="FilterMode" HorizontalAlignment="Left" Margin="86,396,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1"/>
     </Grid>
 </Window>

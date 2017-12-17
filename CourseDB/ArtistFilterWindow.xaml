@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseDB"
         mc:Ignorable="d"
-        Title="ArtistFilterWindow" Height="300" Width="450" Closing="Window_Closing">
+        Title="ArtistFilterWindow" Height="300" Width="450" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -14,7 +14,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="ListOfFilters">
+        <ListBox ItemsSource="{Binding Delegates.Keys}" x:Name="ListOfFilters" Margin="0,0,0.333,37.667">
         </ListBox>
         <StackPanel Grid.Column="1" VerticalAlignment="Top" Width="auto" HorizontalAlignment="Center">
             <StackPanel.Resources>
@@ -31,9 +31,11 @@
                 <TextBox x:Name="ToYear">*</TextBox>
             </StackPanel>
             <Label HorizontalAlignment="Center" Margin="0, 10, 0, 0">Название фильтра</Label>
-            <TextBox x:Name="FilterName" Width="100">Фильтр</TextBox>
+            <TextBox x:Name="FilterName" Width="100">Фильтр0</TextBox>
         </StackPanel>
         <Button Grid.Column="1" Width="100" Height="50" Content="Добавить фильтр" Margin="4.667,183,117.333,37.667" Click="Add_Click"></Button>
         <Button Grid.Column="1" Height="50" Content="Удалить фильтр" Margin="111.667,183,0.333,37.667" Click="Delete_Click"/>
+        <RadioButton IsChecked="True" Content="Все сразу" GroupName="FilterMode" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
+        <RadioButton Content="Хотя бы один" GroupName="FilterMode" HorizontalAlignment="Left" Margin="105,246,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked_1"/>
     </Grid>
 </Window>

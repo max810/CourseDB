@@ -13,7 +13,6 @@
             <Setter Property="Margin" Value="5, 5"></Setter>
             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
         </Style>
-        <local:SearchValueConverter x:Key="SearchValueConverter" />
         <Style TargetType="{x:Type DataGridCell}">
             <Setter Property="Height" Value="50"></Setter>
             <Setter Property="local:DataGridSearch.IsTextMatch">
@@ -45,10 +44,19 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="7 0"></Setter>
+                    <Setter Property="MinWidth" Value="40"></Setter>
+                </Style>
+            </StackPanel.Resources>
             <StackPanel Orientation="Horizontal">
                 <Label Target="{Binding ElementName=artistDataGrid}">Художники</Label>
-                <TextBox x:Name="ArtistSearchBox"/>
-                <Button x:Name="FilterButton" Click="FilterButton_Click">Фильтры</Button>
+                <TextBox x:Name="ArtistSearchBox" TextChanged="ArtistSearchBox_TextChanged"/>
+                <Button x:Name="PreviousArtistFoundButton" Click="PreviousFoundArtistButton_Click"> &lt; </Button>
+                <Button x:Name="NextArtistFoundButton" Click="NextFoundArtistButton_Click"> &gt; </Button>
+                <Button x:Name="AddArtistFilterButton" Click="ArtistFilterButton_Click">Добавить фильтры</Button>
+                <Button x:Name="ClearArtistFilterButton" Click="ClearAllArtistFiltersButton_Click">Снять все фильтры</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel.Resources>
@@ -61,7 +69,7 @@
                 <Button Content="Изменить" Click="EditArtistClick"/>
                 <Button Content="Удалить" Click="DeleteArtist_Click"/>
             </StackPanel>
-            <DataGrid IsReadOnly="True" Height="200" x:Name="artistDataGrid" local:DataGridSearch.SearchValue="{Binding ElementName=ArtistSearchBox, Path=Text, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid IsReadOnly="True" Height="200" x:Name="artistDataGrid" local:DataGridSearch.SearchValue="{Binding ElementName=ArtistSearchBox, Path=Text, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" EnableRowVirtualization="False" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="idColumn" Binding="{Binding id}" Header="id" Width="SizeToHeader"/>
                     <DataGridTextColumn x:Name="full_nameColumn" Binding="{Binding full_name}" Header="full name" Width="0.5*" MaxWidth="200"/>
@@ -85,10 +93,19 @@
         </StackPanel>
         <Separator Height="5" Margin="0,295,0,0" Background="LightGray" HorizontalAlignment="Stretch"></Separator>
         <StackPanel Grid.Row="1" VerticalAlignment="Top">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="7 0"></Setter>
+                    <Setter Property="MinWidth" Value="40"></Setter>
+                </Style>
+            </StackPanel.Resources>
             <StackPanel Orientation="Horizontal">
                 <Label Target="{Binding ElementName=paintingsDataGrid}">Картины</Label>
-                <TextBox x:Name="PaintingSearchBox" />
-                <Button x:Name="FilterButton_Copy" Click="PaintingButton_Click" Content="Фильтры"/>
+                <TextBox x:Name="PaintingSearchBox" TextChanged="PaintingSearchBox_TextChanged"/>
+                <Button x:Name="PreviousFoundPaintingButton" Click="PreviousFoundPaintingButton_Click">&lt;</Button>
+                <Button x:Name="NextFoundPaintingButton" Click="NextFoundPaintingButton_Click">&gt;</Button>
+                <Button x:Name="AddFilterButton" Click="PaintingFilterButton_Click">Добавить фильтры</Button>
+                <Button x:Name="ClearPaintingFilterButton" Click="ClearAllPaintingFiltersButton_Click">Снять все фильтры</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel.Resources>
@@ -101,7 +118,7 @@
                 <Button Content="Изменить" Click="EditPainting_Click"/>
                 <Button Content="Удалить" Click="DeletePainting_Click"/>
             </StackPanel>
-            <DataGrid IsReadOnly="True" Height="200" local:DataGridSearch.SearchValue="{Binding Text, ElementName=PaintingSearchBox, UpdateSourceTrigger=PropertyChanged}" x:Name="paintingsDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource artistPaintingsViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid IsReadOnly="True" Height="200" local:DataGridSearch.SearchValue="{Binding Text, ElementName=PaintingSearchBox, UpdateSourceTrigger=PropertyChanged}" x:Name="paintingsDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="False" ItemsSource="{Binding Source={StaticResource artistPaintingsViewSource}}" RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="idColumn1" Binding="{Binding id}" Header="id" Width="SizeToHeader"/>
                     <DataGridTextColumn x:Name="nameColumn" Binding="{Binding name}" Header="name" Width="0.5*" MaxWidth="200"/>

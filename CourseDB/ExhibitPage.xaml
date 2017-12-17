@@ -5,25 +5,84 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourseDB"
       mc:Ignorable="d" 
-      Title="ExhibitPage">
+      Title="ExhibitPage" Width="600" Height="500" Loaded="Page_Loaded">
+    <Page.Resources>
+        <Style TargetType="{x:Type StackPanel}">
+            <Setter Property="Orientation" Value="Vertical"></Setter>
+            <Setter Property="Margin" Value="5, 5"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Width" Value="150"></Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="Margin" Value="5, 10"></Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}">
+            <Setter Property="Height" Value="50"></Setter>
+            <Setter Property="local:DataGridSearch.IsTextMatch">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource SearchValueConverter}">
+                        <Binding RelativeSource="{RelativeSource Self}" Path="Content.Text" />
+                        <Binding RelativeSource="{RelativeSource Self}" Path="(local:DataGridSearch.SearchValue)" />
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="local:DataGridSearch.IsTextMatch" Value="True">
+                    <Setter Property="Background" Value="Orange" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
 
     <Grid DataContext="{StaticResource exhibitViewSource}">
-        <DataGrid IsReadOnly="True" x:Name="exhibitDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="5,5,5,48.333">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="7 0"></Setter>
+                    <Setter Property="MinWidth" Value="40"></Setter>
+                </Style>
+            </StackPanel.Resources>
+            <Label Target="{Binding ElementName=artistDataGrid}">Экспонаты</Label>
+            <TextBox x:Name="ExhibitSearchBox" TextChanged="ExhibitSearchBox_TextChanged"/>
+            <Button x:Name="PreviousExhibitFoundButton" Click="PreviousFoundExhibitButton_Click">&lt;</Button>
+            <Button x:Name="NextExhibitFoundButton" Click="NextFoundExhibitButton_Click">&gt;</Button>
+            <Button x:Name="AddArtistFilterButton" Click="ExhibitFilterButton_Click">Добавить фильтры</Button>
+            <Button x:Name="ClearArtistFilterButton" Click="ClearAllExhibitFiltersButton_Click">Снять все фильтры</Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10 50 0 5">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Margin" Value="15, 0"/>
+                        <Setter Property="Padding" Value="4"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Content="Добавить" Click="AddExhibit_Click"/>
+                <Button Content="Изменить" Click="EditExhibit_Click"/>
+                <Button Content="Удалить" Click="DeleteExhibit_Click"/>
+            </StackPanel>
+        <DataGrid Grid.Row="1" IsReadOnly="True" x:Name="exhibitDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="False" ItemsSource="{Binding}" RowDetailsVisibilityMode="VisibleWhenSelected" local:DataGridSearch.SearchValue="{Binding ElementName=ExhibitSearchBox, Path=Text, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="painting_idColumn" Binding="{Binding painting_id}" Header="painting id" Width="SizeToHeader"/>
-                <DataGridTemplateColumn x:Name="date_of_acquiringColumn" Header="date of acquiring" Width="SizeToHeader">
+                <DataGridTextColumn x:Name="painting_idColumn" Binding="{Binding Painting.name}" Header="Картина" Width="100"/>
+                <!--<DataGridTemplateColumn x:Name="date_of_acquiringColumn" Header="date of acquiring" Width="SizeToHeader">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <DatePicker SelectedDate="{Binding date_of_acquiring, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridCheckBoxColumn x:Name="is_originalColumn" Binding="{Binding is_original}" Header="is original" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="widthColumn" Binding="{Binding width}" Header="width" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="heightColumn" Binding="{Binding height}" Header="height" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="canvas_typeColumn" Binding="{Binding canvas_type}" Header="canvas type" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="paint_typeColumn" Binding="{Binding paint_type}" Header="paint type" Width="SizeToHeader"/>
-                <DataGridTextColumn x:Name="hall_idColumn" Binding="{Binding hall_id}" Header="hall id" Width="SizeToHeader"/>
+                </DataGridTemplateColumn>-->
+                <DataGridTextColumn x:Name="date_of_acquiringColumn" Header="Дата приобр." Width="SizeToHeader" Binding="{Binding date_of_acquiring.Date, Converter={StaticResource DateConverter}}"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="is_originalColumn" FontSize="14" FontWeight="Bold" Binding="{Binding is_original, Converter={StaticResource BooleanConverter}}" Header="Оригинал" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="widthColumn" Binding="{Binding width}" Header="Ширина, см" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="heightColumn" Binding="{Binding height}" Header="Высота, см" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="canvas_typeColumn" Binding="{Binding canvas_type}" Header="Холст" Width="70"/>
+                <DataGridTextColumn x:Name="paint_typeColumn" Binding="{Binding paint_type}" Header="Краска" Width="70"/>
+                <DataGridTextColumn x:Name="hall_idColumn" Binding="{Binding Hall.name}" Header="Зал" Width="80"/>
             </DataGrid.Columns>
         </DataGrid>
 

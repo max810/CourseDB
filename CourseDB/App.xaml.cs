@@ -23,10 +23,12 @@ namespace CourseDB
             context.Paintings.Load();
             context.Art_movement.Load();
             context.Exhibits.Load();
+            context.Halls.Load();
             (this.FindResource("artistViewSource") as CollectionViewSource).Source = context.Artists.Local;
             (this.FindResource("paintingViewSource") as CollectionViewSource).Source = context.Paintings.Local;
             (this.FindResource("art_movementViewSource") as CollectionViewSource).Source = context.Art_movement.Local;
             (this.FindResource("exhibitViewSource") as CollectionViewSource).Source = context.Exhibits.Local;
+            (this.FindResource("hallViewSource") as CollectionViewSource).Source = context.Halls.Local;
         }
     }
 }
