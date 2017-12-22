@@ -29,6 +29,7 @@ namespace CourseDB
         {
             CurrentExhibit = new Exhibit();
             InitializeComponent();
+            Painting_ComboBox.IsEnabled = true;
         }
         public ExhibitEditWindow(Exhibit current)
         {
@@ -43,6 +44,7 @@ namespace CourseDB
             CurrentExhibit.paint_type = (PaintTypeComboBox.SelectedItem as ComboBoxItem).Content.ToString();
             if (!edit)
             {
+                CurrentExhibit.painting_id = (int)Painting_ComboBox.SelectedValue;
                 context.Exhibits.Add(CurrentExhibit);
             }
             paintingViewSource.Filter -= paintingFilter;

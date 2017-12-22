@@ -8,7 +8,7 @@
         Title="ExhibitEditWindow" Height="450" Width="300" x:Name="UI" Loaded="UI_Loaded">
     <Grid>
         <Label Content="Экспонат" FontSize="18" HorizontalAlignment="Center" Margin="100,10,104.333,0" VerticalAlignment="Top" Width="89"/>
-        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding Source={StaticResource paintingViewSource}}" Height="28" Margin="135,65,0,0" DisplayMemberPath="name" SelectedValuePath="id" SelectedValue="{Binding ElementName=UI, Path=CurrentExhibit.painting_id, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <ComboBox IsEnabled="False" HorizontalAlignment="Left" ItemsSource="{Binding Source={StaticResource paintingViewSource}}" Height="28" Margin="135,65,0,0" DisplayMemberPath="name" SelectedValuePath="id" VerticalAlignment="Top" Width="120" x:Name="Painting_ComboBox"/>
         <DatePicker SelectedDate="{Binding ElementName=UI, Path=CurrentExhibit.date_of_acquiring}" HorizontalAlignment="Left" Margin="135,98,0,0" VerticalAlignment="Top" Width="120" Height="29" />
         <CheckBox IsChecked="{Binding ElementName=UI, Path=CurrentExhibit.is_original}" HorizontalAlignment="Left" Margin="135,137,0,0" VerticalAlignment="Top" Width="120" Height="30" />
         <Label Content="Картина" HorizontalAlignment="Left" Margin="37,65,0,0" VerticalAlignment="Top" Height="28" Width="93"/>

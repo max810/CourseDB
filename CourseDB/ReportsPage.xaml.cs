@@ -38,7 +38,7 @@ namespace CourseDB
             set
             {
                 chosenArtist = value;
-                if(ArtistExhibitDataGrid != null)
+                if (ArtistExhibitDataGrid != null)
                     ArtistExhibitDataGrid.ItemsSource = GetArtistExhibitStatTable(chosenArtist).DefaultView;
             }
         }
@@ -66,7 +66,8 @@ namespace CourseDB
                 columnNumber++;
                 while (columnNumber < pivot.Columns.Count)
                 {
-                    var paintingsCount = artist.Paintings.Where(x => x.Art_movement == artMovements[columnNumber - 1]).Count();
+                    var paintingsCount = artist.Paintings.Where(x =>
+                        x.Art_movement == artMovements[columnNumber - 1]).Count();
                     entry[columnNumber] = paintingsCount;
                     columnNumber++;
                 }
@@ -107,8 +108,8 @@ namespace CourseDB
                 entry[columnNumber] = GetMainMovement(hall.Exhibits);
                 columnNumber++;
 
-                entry[columnNumber] = hall.Exhibits.Any() 
-                    ? $"{hall.Exhibits.Average(x => x.width)} x {hall.Exhibits.Average(x => x.height)}" 
+                entry[columnNumber] = hall.Exhibits.Any()
+                    ? $"{hall.Exhibits.Average(x => x.width)} x {hall.Exhibits.Average(x => x.height)}"
                     : "-";
 
 
@@ -128,7 +129,11 @@ namespace CourseDB
                 : 2;
 
             var counts = list.GroupBy(x => x.Painting.Art_movement)
-                .Select(x => new { MovementName = x.Key.name, PaintingCount = x.Count() })
+                .Select(x => new
+                {
+                    MovementName = x.Key.name,
+                    PaintingCount = x.Count()
+                })
                 .OrderByDescending(x => x.PaintingCount)
                 .ToArray();
             if (counts[0].PaintingCount - counts[1].PaintingCount < delta)
@@ -152,7 +157,7 @@ namespace CourseDB
                 new DataColumn("Зал, где выставляется", typeof(string))
             });
 
-            foreach(var painting in artist.Paintings)
+            foreach (var painting in artist.Paintings)
             {
                 int columnNumber = 0;
                 var entry = artistExhibitStatTable.NewRow();
@@ -210,7 +215,7 @@ namespace CourseDB
                     for (int k = 0; k < HallStatView.Table.Rows.Count; k++)
                     {
                         var items = HallStatView.Table.Rows[k].ItemArray;
-                        for (int i = 0; i <items.Length; i++)
+                        for (int i = 0; i < items.Length; i++)
                         {
                             range.Tables[1].Cell(k + 2, i + 1).Range.Text = items[i].ToString();
                         }

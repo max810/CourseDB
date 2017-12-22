@@ -57,10 +57,20 @@ namespace CourseDB
             StatModel.Series.Clear();
             StatModel.Axes.Clear();
 
-            var categoryAxis = new OxyPlot.Axes.CategoryAxis { Position = AxisPosition.Bottom };
-            var s1 = new OxyPlot.Series.ColumnSeries { Title = $"Творчество художника ({artist.full_name})", StrokeColor = OxyColors.Black, StrokeThickness = 1 };
+            var categoryAxis = new OxyPlot.Axes.CategoryAxis
+            {
+                Position = AxisPosition.Bottom
+            };
+            var s1 = new OxyPlot.Series.ColumnSeries
+            {
+                Title = $"Творчество художника ({artist.full_name})",
+                StrokeColor = OxyColors.Black, StrokeThickness = 1
+            };
 
-            var paintings = context.Paintings.Where(x => x.artist_id == artist.id && x.year_of_creation != null).OrderBy(x => x.year_of_creation).ToArray();
+            var paintings = context.Paintings.Where(x => x.artist_id == artist.id 
+                && x.year_of_creation != null)
+                .OrderBy(x => x.year_of_creation)
+                .ToArray();
             if (paintings.Any())
             {
                 var min = artist.date_of_birth.Value.Year;
@@ -76,7 +86,8 @@ namespace CourseDB
                         nextBound = max;
                     }
                     int count = 0;
-                    while (currIndex < paintings.Length && paintings[currIndex].year_of_creation <= nextBound)
+                    while (currIndex < paintings.Length 
+                        && paintings[currIndex].year_of_creation <= nextBound)
                     {
                         count++;
                         currIndex++;
@@ -89,7 +100,13 @@ namespace CourseDB
                     }
                 }
 
-                var valueAxis = new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Left, MinimumPadding = 0, MaximumPadding = 0.06, AbsoluteMinimum = 0 };
+                var valueAxis = new OxyPlot.Axes.LinearAxis
+                {
+                    Position = AxisPosition.Left,
+                    MinimumPadding = 0,
+                    MaximumPadding = 0.06,
+                    AbsoluteMinimum = 0
+                };
 
                 StatModel.Series.Add(s1);
                 StatModel.Axes.Add(categoryAxis);
